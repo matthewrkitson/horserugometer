@@ -12,6 +12,85 @@
 
 <body onLoad="updateRugGuide()">
   <pre id="weather"></pre>
+
+  <table>
+    <tr>
+      <th>  </th>
+      <th> Temp &deg;C</th>
+      <th> Feels like &deg;C</th>
+      <th> Precip. prob.</th>
+    </tr>
+    <tr>
+      <td>Max</td>
+      <td id="max-temp"></td>
+      <td id="max-feels-like"></td>
+      <td id="max-pop"</td>
+    </tr>
+    <tr>
+      <td>Average</td>
+      <td id="average-temp"></td>
+      <td id="average-feels-like"></td>
+      <td id="average-pop"</td>
+    </tr>
+    <tr>
+      <td>Min</td>
+      <td id="min-temp"></td>
+      <td id="min-feels-like"></td>
+      <td id="min-pop"></td>
+    </tr>
+  </table>
+  <br/>
+  <table>
+    <tr>
+      <th>Temperature</th>
+      <th>Stabled, clipped</th>
+      <th>Stabled, unclipped</th>
+      <th>Turned out, clipped</th>
+      <th>Turned out, unclipped</th>
+    </tr>
+    <tr class="min15 deselected">
+      <td>Above 15&deg;C</td>
+      <td> Zero fill </td>
+      <td>Nothing</td>
+      <td>Nothing</td>
+      <td>Nothing</td>
+    </tr>
+    <tr class="min10 deselected">
+      <td> 15 &ndash; 10&deg;C</td>
+      <td>Light weight (100g) or zero fill</td>
+      <td>Nothing or zero fill</td>
+      <td>Nothing or light weight (100g) or zero fill if wet and windy</td>
+      <td>Nothing</td>
+    </tr>
+    <tr class="min5 deselected">
+      <td>5 &ndash; 10&deg;C</td>
+      <td>Medium weight (250g)</td>
+      <td>Light weight (150g)</td>
+      <td>Light weight (150g) with neck cover</td>
+      <td>Nothing or light weight (100g)</td>
+    </tr>
+    <tr class="min0 deselected">
+      <td>0 &ndash; 5&deg;C</td>
+      <td>Heavy weight (300g)</td>
+      <td>Medium weight (200g)</td>
+      <td>Medium weight (200g) with neck cover</td>
+      <td>Nothing or light/medium weight (150-250g)</td>
+    </tr>
+    <tr class="min-10 deselected">
+      <td>-5 &ndash; -10&deg;C</td>
+      <td>Heavy weight (300-400g) with neck cover</td>
+      <td>Medium weight (200-300g) with liner</td>
+      <td>Heavy weight (300-400g) with neck cover and liner</td>
+      <td>Light/medium weight (150-300g) with neck cover</td>
+    </tr>
+    <tr class="colder deselected">
+      <td>Below -10&deg;C</td>
+      <td>Heavy weight (300-500g) with neck cover and liner</td>
+      <td>Medium/heavy weight (300-400g) with neck cover</td>
+      <td>Heavy weight (300-500g) with liner and/or underblanket and hood</td>
+      <td>Heavy weight (300-500g) with neck cover</td>
+    </tr>
+  </table>
 </body>
 
 </html>

@@ -2,3 +2,44 @@ html, body {
   height: 100%;
   width: 100%;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  text-align: center;
+  border: solid;
+}
+
+tr {
+  border-style: solid;
+}
+
+.min15 {
+}
+
+.min10 {
+}
+
+.min5 {
+}
+
+.min0 {
+}
+
+.min-10 {
+}
+
+.colder {
+}
+
+.selected {
+  font-weight: bold;
+  opacity: 100%;
+}
+
+.deselected {
+  font-weight: normal;
+  opacity: 60%
+}
