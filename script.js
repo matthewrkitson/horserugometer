@@ -41,7 +41,7 @@ async function updateRugGuide() {
   $("#average-feels-like").text(meanFeelsLike.toPrecision(precision));
   $("#min-pop").text(`${minPop.toFixed(0)} %`);
   $("#max-pop").text(`${maxPop.toFixed(0)} %`);
-  $("#average-pop").text(`${meanPop.toFixed(0)} %`);
+  // $("#average-pop").text(`${meanPop.toFixed(0)} %`);
 
   if (average_temp > 15) {
     $(".min15").removeClass("deselected").addClass("selected");
