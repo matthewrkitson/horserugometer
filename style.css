@@ -10,10 +10,14 @@ table {
 td, th {
   text-align: center;
   border: solid;
+  padding: 0.3em; 
+  border-width: thin;
 }
 
-tr {
+.ref-temp {
   border-style: solid;
+  border-width: medium;
+  font-weight: bold;
 }
 
 /* Exported from https://colorbrewer2.org/?type=sequential&scheme=Blues&n=6 */
@@ -53,12 +57,11 @@ tr {
 
 .selected {
   font-weight: bold;
-  font-size: large;
+  font-size: larger;
   opacity: 100%;
 }
 
 .deselected {
   font-weight: normal;
-  font-size: small;
   opacity: 60%;
 }
