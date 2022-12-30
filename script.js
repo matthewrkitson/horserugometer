@@ -45,16 +45,22 @@ async function updateRugGuide() {
 
   if (average_temp > 15) {
     $(".min15").removeClass("deselected").addClass("selected");
+    $(".colourable").addClass("min15")
   } else if (average_temp > 10) {
     $(".min10").removeClass("deselected").addClass("selected");;
+    $(".colourable").addClass("min10")
   } else if (average_temp > 5) {
     $(".min5").removeClass("deselected").addClass("selected");;
+    $(".colourable").addClass("min5")
   } else if (average_temp > 0) {
     $(".min0").removeClass("deselected").addClass("selected");;
+    $(".colourable").addClass("min0")
   } else if (average_temp > -10) {
-    $("min-10").removeClass("deselected").addClass("selected");;
+    $(".min-10").removeClass("deselected").addClass("selected");;
+    $(".colourable").addClass("min-10")
   } else {
-    $("colder").removeClass("deselected").addClass("selected");;
+    $(".colder").removeClass("deselected").addClass("selected");;
+    $(".colourable").addClass("colder")
   }
   
   

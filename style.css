@@ -16,30 +16,49 @@ tr {
   border-style: solid;
 }
 
+/* Exported from https://colorbrewer2.org/?type=sequential&scheme=Blues&n=6 */
+.RdYlBu .q0-9{fill:rgb(215,48,39)} 
+.RdYlBu .q1-9{fill:rgb(244,109,67)} 
+.RdYlBu .q2-9{fill:rgb(253,174,97)} 
+.RdYlBu .q3-9{fill:rgb(254,224,144)} 
+.RdYlBu .q4-9{fill:rgb(255,255,191)} 
+.RdYlBu .q5-9{fill:rgb(224,243,248)} 
+.RdYlBu .q6-9{fill:rgb(171,217,233)} 
+.RdYlBu .q7-9{fill:rgb(116,173,209)} 
+.RdYlBu .q8-9{fill:rgb(69,117,180)}
+
 .min15 {
+  background-color: rgb(254,224,144);
 }
 
 .min10 {
+  background-color: rgb(255,255,191);
 }
 
 .min5 {
+  background-color: rgb(224,243,248);
 }
 
 .min0 {
+  background-color: rgb(171,217,233);
 }
 
 .min-10 {
+  background-color: rgb(116,173,209);
 }
 
 .colder {
+  background-color: rgb(69,117,180);
 }
 
 .selected {
   font-weight: bold;
+  font-size: large;
   opacity: 100%;
 }
 
 .deselected {
   font-weight: normal;
-  opacity: 60%
+  font-size: small;
+  opacity: 60%;
 }
