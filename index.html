@@ -7,11 +7,14 @@
   <title>replit</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link href="horse.png" rel="icon" type="image/png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
   <script src="script.js"></script>
 </head>
 
-<body onLoad="updateRugGuide()">
+<body onLoad="setupRugGuide()">
   <H1>🐎 Horse-rug-ometer 🐎</H1>
 
   <table>
@@ -49,42 +52,42 @@
       <th>Turned out, clipped</th>
       <th>Turned out, unclipped</th>
     </tr>
-    <tr class="min15 deselected">
+    <tr class="min15 selectable deselected">
       <td>Above 15&deg;C</td>
       <td> Zero fill </td>
       <td>Nothing</td>
       <td>Nothing</td>
       <td>Nothing</td>
     </tr>
-    <tr class="min10 deselected">
+    <tr class="min10 selectable deselected">
       <td> 15 &ndash; 10&deg;C</td>
       <td>Light weight (100g) or zero fill</td>
       <td>Nothing or zero fill</td>
       <td>Nothing or light weight (100g) or zero fill if wet and windy</td>
       <td>Nothing</td>
     </tr>
-    <tr class="min5 deselected">
+    <tr class="min5 selectable deselected">
       <td>5 &ndash; 10&deg;C</td>
       <td>Medium weight (250g)</td>
       <td>Light weight (150g)</td>
       <td>Light weight (150g) with neck cover</td>
       <td>Nothing or light weight (100g)</td>
     </tr>
-    <tr class="min0 deselected">
+    <tr class="min0 selectable deselected">
       <td>0 &ndash; 5&deg;C</td>
       <td>Heavy weight (300g)</td>
       <td>Medium weight (200g)</td>
       <td>Medium weight (200g) with neck cover</td>
       <td>Nothing or light/medium weight (150-250g)</td>
     </tr>
-    <tr class="min-10 deselected">
-      <td>-5 &ndash; -10&deg;C</td>
+    <tr class="min-10 selectable deselected">
+      <td>0 &ndash; -10&deg;C</td>
       <td>Heavy weight (300-400g) with neck cover</td>
       <td>Medium weight (200-300g) with liner</td>
       <td>Heavy weight (300-400g) with neck cover and liner</td>
       <td>Light/medium weight (150-300g) with neck cover</td>
     </tr>
-    <tr class="colder deselected">
+    <tr class="colder selectable deselected">
       <td>Below -10&deg;C</td>
       <td>Heavy weight (300-500g) with neck cover and liner</td>
       <td>Medium/heavy weight (300-400g) with neck cover</td>
@@ -93,11 +96,14 @@
     </tr>
   </table>
   <br/>
-  <h3>Credits</h3>
-  <ul></ul>
-  <li>Written by <a target="_blank" href="https://github.com/matthewrkitson/horserugometer">Matthew Kitson</a></li>
-  <li>Rug recommendations from <a target="_blank" href="https://www.beta-uk.org/media.php?url=media/safety/download/40620-BETA%20Guide%20to%20Body%20Protectors%20v3.pdf">BETA</a> and <a target="_blank" href="https://www.equus.co.uk/blogs/community/temperature-guide-to-rugging-a-horse">Equus</li>
+  <div id="map"></div>
+  <br/>
+  <h3>Notes and Credits</h3>
+  <ul>
+    <li>This site uses cookies to store your chosen location.</li>
+    <li>Written by <a target="_blank" href="https://github.com/matthewrkitson/horserugometer">Matthew Kitson</a></li>
+    <li>Rug recommendations from <a target="_blank" href="https://www.beta-uk.org/media.php?url=media/safety/download/40620-BETA%20Guide%20to%20Body%20Protectors%20v3.pdf">BETA</a> and <a target="_blank" href="https://www.equus.co.uk/blogs/community/temperature-guide-to-rugging-a-horse">Equus</li>
   <li><a target="_blank" href="https://icons8.com/icon/3461/horse">Horse</a> favicon by <a target="_blank" href="https://icons8.com">Icons8</a></body></li>
   <li><a target="_blank" href="https://colorbrewer2.org/?type=sequential&scheme=Blues&n=6">Colors from www.ColorBrewer.org by Cynthia A. Brewer, Geography, Pennsylvania State University.</a></li>
-
+</ul>
 </html>

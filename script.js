@@ -14,11 +14,38 @@ function minMaxMean(values, valueFunc) {
   return { min, max, mean };
 }
 
-async function updateRugGuide() {
-  const x = "404b509674bb4dfe117be467b2333c2c"
+function onMapClick(e) {
+  this.setLatLng(e.latlng)
+  // Cookies.set("lat", e.latlng.lat, { expires: 10000 })
+  // Cookies.set("lon", e.latlng.lng, { expires: 10000 })
+  updateRugGuide(e.latlng.lat, e.latlng.lng)
+}
+
+async function setupRugGuide() {
   // lat: 52°18'10.08, long: -0°8'12.12
   // lat: 52.3028°, long: -0.1367°
-  const [lat, lon] = [52.3028, -0.1367]
+  var lat = parseFloat(Cookies.get("lat")) || 52.3028;
+  var lon = parseFloat(Cookies.get("lon")) || -0.1367;
+
+  // const [lat, lon] = [52.3028, -0.1367]
+  
+  var map = L.map('map').setView([lat, lon], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  const marker = L.marker([lat, lon]).addTo(map);
+	map.on('click', onMapClick, marker);
+
+  updateRugGuide(lat, lon)
+}
+
+async function updateRugGuide(lat, lon) {
+  Cookies.set("lat", lat, { expires: 90 })
+  Cookies.set("lon", lon, { expires: 90 })
+  
+  const x = "404b509674bb4dfe117be467b2333c2c"
   const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${x}`);
   const data = await response.json();
   
@@ -43,6 +70,8 @@ async function updateRugGuide() {
   $("#max-pop").text(`${maxPop.toFixed(0)} %`);
   // $("#average-pop").text(`${meanPop.toFixed(0)} %`);
 
+  $(".selected").removeClass("selected").addClass("deselected")
+  $(".colourable").removeClass("min15 min10 min5 min0 min-10 colder");
   if (average_temp > 15) {
     $(".min15").removeClass("deselected").addClass("selected");
     $(".colourable").addClass("min15")
@@ -63,8 +92,6 @@ async function updateRugGuide() {
     $(".colourable").addClass("colder")
   }
   
-  
-
   // https://www.windmillfeeds.co.uk/wp-content/uploads/2019/01/BETA.jpg
   // https://www.beta-uk.org/media/trade/download/39672-BETA%20Outdoor%20Rug%20Insert%20v3.pdf
   // https://www.equus.co.uk/blogs/community/temperature-guide-to-rugging-a-horse

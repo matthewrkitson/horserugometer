@@ -65,3 +65,9 @@ td, th {
   font-weight: normal;
   opacity: 60%;
 }
+
+#map {
+  height: 50em;
+  width: 50em;
+  /* display: none; */
+}
