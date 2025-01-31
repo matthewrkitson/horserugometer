@@ -4,7 +4,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>replit</title>
+  <title>Horse-rug-ometer</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link href="horse.png" rel="icon" type="image/png">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
@@ -14,87 +14,119 @@
   <script src="script.js"></script>
 </head>
 
-<body onLoad="setupRugGuide()">
+<body onLoad="setup()">
   <H1>🐎 Horse-rug-ometer 🐎</H1>
 
-  <table>
-    <tr>
-      <th>  </th>
-      <th> Temp &deg;C</th>
-      <th> Feels like &deg;C</th>
-      <th> Precip. prob.</th>
-    </tr>
-    <tr>
-      <td>Max</td>
-      <td id="max-temp" class="colourable"></td>
-      <td id="max-feels-like" class="colourable"></td>
-      <td id="max-pop" class="colourable"></td>
-    </tr>
-    <tr>
-      <td>Average</td>
-      <td id="average-temp" class="colourable"></td>
-      <td id="average-feels-like" class="colourable ref-temp"></td>
-      <td id="average-pop" class="colourable"></td>
-    </tr>
-    <tr>
-      <td>Min</td>
-      <td id="min-temp" class="colourable"></td>
-      <td id="min-feels-like" class="colourable"></td>
-      <td id="min-pop" class="colourable"></td>
-    </tr>
-  </table>
-  <br/>
-  <table>
-    <tr>
-      <th>Temperature</th>
-      <th>Stabled, clipped</th>
-      <th>Stabled, unclipped</th>
-      <th>Turned out, clipped</th>
-      <th>Turned out, unclipped</th>
-    </tr>
-    <tr class="min15 selectable deselected">
-      <td>Above 15&deg;C</td>
-      <td> Zero fill </td>
-      <td>Nothing</td>
-      <td>Nothing</td>
-      <td>Nothing</td>
-    </tr>
-    <tr class="min10 selectable deselected">
-      <td> 15 &ndash; 10&deg;C</td>
-      <td>Light weight (100g) or zero fill</td>
-      <td>Nothing or zero fill</td>
-      <td>Nothing or light weight (100g) or zero fill if wet and windy</td>
-      <td>Nothing</td>
-    </tr>
-    <tr class="min5 selectable deselected">
-      <td>5 &ndash; 10&deg;C</td>
-      <td>Medium weight (250g)</td>
-      <td>Light weight (150g)</td>
-      <td>Light weight (150g) with neck cover</td>
-      <td>Nothing or light weight (100g)</td>
-    </tr>
-    <tr class="min0 selectable deselected">
-      <td>0 &ndash; 5&deg;C</td>
-      <td>Heavy weight (300g)</td>
-      <td>Medium weight (200g)</td>
-      <td>Medium weight (200g) with neck cover</td>
-      <td>Nothing or light/medium weight (150-250g)</td>
-    </tr>
-    <tr class="min-10 selectable deselected">
-      <td>0 &ndash; -10&deg;C</td>
-      <td>Heavy weight (300-400g) with neck cover</td>
-      <td>Medium weight (200-300g) with liner</td>
-      <td>Heavy weight (300-400g) with neck cover and liner</td>
-      <td>Light/medium weight (150-300g) with neck cover</td>
-    </tr>
-    <tr class="colder selectable deselected">
-      <td>Below -10&deg;C</td>
-      <td>Heavy weight (300-500g) with neck cover and liner</td>
-      <td>Medium/heavy weight (300-400g) with neck cover</td>
-      <td>Heavy weight (300-500g) with liner and/or underblanket and hood</td>
-      <td>Heavy weight (300-500g) with neck cover</td>
-    </tr>
-  </table>
+  <fieldset id="stablingSelection">
+    <legend>Horses are stabled</legend>
+    <input type="radio" id="nighttimeButton" name="stabled" value="nighttime" onclick="setStabling(this.value)"/>
+    <label for="nighttimeButton">Night-time</label>
+    <input type="radio" id="daytimeButton" name="stabled" value="daytime" onclick="setStabling(this.value)"/>
+    <label for="daytimeButton">Daytime</label>
+  </fieldset>
+<!-- 
+  <fieldset id="time-of-day-selection">
+    <legend>What time is it now?</legend>
+    <input type="radio" id="amButton" name="stabled" value="am" onclick="setTimeOfDay(this.value)"/>
+    <label for="amButton">AM</label>
+    <input type="radio" id="pmButton" name="stabled" value="pm" onclick="setTimeOfDay(this.value)"/>
+    <label for="pmButton">PM</label>
+  </fieldset>
+-->
+
+  <div id="recommendations">
+    <div id="stabled-recommendation">
+      <h2><span class="timeofday">&#x263C; Daytime</span>: stabled</h2>
+      <p class="weather-summary colourable">Temperature (actual): <span class="min-temp">??</span> &ndash; <span class="max-temp">??</span>&deg;C (avg: <span class="mean-temp">??</span>&deg;C)</p>
+      <p class="weather-summary">Precipitation probability: <span class="min-pop">??</span>% &ndash; <span class="max-pop">??</span>%</p>
+      <br/>
+      <table>
+        <tr>
+          <th>Temperature</th>
+          <th>Stabled, clipped</th>
+          <th>Stabled, unclipped</th>
+        </tr>
+        <tr class="min15 selectable deselected">
+          <td>Above 15&deg;C</td>
+          <td> Zero fill </td>
+          <td>Nothing</td>
+        </tr>
+        <tr class="min10 selectable deselected">
+          <td> 15 &ndash; 10&deg;C</td>
+          <td>Light weight (100g) or zero fill</td>
+          <td>Nothing or zero fill</td>
+        </tr>
+        <tr class="min5 selectable deselected">
+          <td>5 &ndash; 10&deg;C</td>
+          <td>Medium weight (250g)</td>
+          <td>Light weight (150g)</td>
+        </tr>
+        <tr class="min0 selectable deselected">
+          <td>0 &ndash; 5&deg;C</td>
+          <td>Heavy weight (300g)</td>
+          <td>Medium weight (200g)</td>
+        </tr>
+        <tr class="min-10 selectable deselected">
+          <td>0 &ndash; -10&deg;C</td>
+          <td>Heavy weight (300-400g) with neck cover</td>
+          <td>Medium weight (200-300g) with liner</td>
+        </tr>
+        <tr class="colder selectable deselected">
+          <td>Below -10&deg;C</td>
+          <td>Heavy weight (300-500g) with neck cover and liner</td>
+          <td>Medium/heavy weight (300-400g) with neck cover</td>
+        </tr>
+      </table>
+    </div>
+    <div id="recommendations-separator">
+      <br/>
+      <hr/>
+    </div>
+    <div id="turned-out-recommendation">
+      <h2><span class="timeofday">&#x263E; Night-time</span>: turned out</h2>
+      <p class="weather-summary colourable">Temperature (feels like): <span class="min-temp">??</span> &ndash; <span class="max-temp">??</span>&deg;C (avg: <span class="mean-temp">??</span>&deg;C)</p>
+      <p class="weather-summary">Precipitation probability: <span class="min-pop">??</span>% &ndash; <span class="max-pop">??</span>%</p>
+      <br/>
+      <table>
+        <tr>
+          <th>Temperature</th>
+          <th>Turned out, clipped</th>
+          <th>Turned out, unclipped</th>
+        </tr>
+        <tr class="min15 selectable deselected">
+          <td>Above 15&deg;C</td>
+          <td>Nothing</td>
+          <td>Nothing</td>
+        </tr>
+        <tr class="min10 selectable deselected">
+          <td> 15 &ndash; 10&deg;C</td>
+          <td>Nothing or light weight (100g) or zero fill if wet and windy</td>
+          <td>Nothing</td>
+        </tr>
+        <tr class="min5 selectable deselected">
+          <td>5 &ndash; 10&deg;C</td>
+          <td>Light weight (150g) with neck cover</td>
+          <td>Nothing or light weight (100g)</td>
+        </tr>
+        <tr class="min0 selectable deselected">
+          <td>0 &ndash; 5&deg;C</td>
+          <td>Medium weight (200g) with neck cover</td>
+          <td>Nothing or light/medium weight (150-250g)</td>
+        </tr>
+        <tr class="min-10 selectable deselected">
+          <td>0 &ndash; -10&deg;C</td>
+          <td>Heavy weight (300-400g) with neck cover and liner</td>
+          <td>Light/medium weight (150-300g) with neck cover</td>
+        </tr>
+        <tr class="colder selectable deselected">
+          <td>Below -10&deg;C</td>
+          <td>Heavy weight (300-500g) with liner and/or underblanket and hood</td>
+          <td>Heavy weight (300-500g) with neck cover</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <hr/>
   <br/>
   <div id="map"></div>
   <br/>

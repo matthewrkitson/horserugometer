@@ -3,6 +3,12 @@ html, body {
   width: 100%;
 }
 
+.weather-summary {
+  font-size: large;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 table {
   border-collapse: collapse;
 }
