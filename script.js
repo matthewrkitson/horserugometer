@@ -43,10 +43,10 @@ let lon = undefined;
 function onMapClick(e) {
   this.setLatLng(e.latlng)
   lat = e.latlng.lat;
-  lon = e.latlng.lon;
+  lon = e.latlng.lng;
   Cookies.set("lat", lat, { expires: 90 });
   Cookies.set("lon", lon, { expires: 90 });
-  updateRugGuide()
+  updateRecommendations()
 }
 
 async function setup() {
@@ -56,8 +56,9 @@ async function setup() {
 
 async function setupStabling() {
   let stabling = Cookies.get("stabling") || "daytime";
-  if (stabling == "nighttime") { $("#nighttimeButton").checked = true; }
-  if (stabling == "daytime") { $("#daytimeButton").checked = true; }
+  console.log(`Stabling from cookies: ${Cookies.get("stabling") || "daytime"}`)
+  if (stabling == "nighttime") { $("#nighttimeButton")[0].checked = true; }
+  if (stabling == "daytime") { $("#daytimeButton")[0].checked = true; }
   setStabling(stabling);
 }
 
@@ -165,19 +166,19 @@ async function applyForecast(div, forecasts, tempSelector, timeFilter) {
 
   div.find(".selected").removeClass("selected").addClass("deselected")
   div.find(".colourable").removeClass("min15 min10 min5 min0 min-10 colder");
-  if (average_temp > 15) {
+  if (meanTemp > 15) {
     div.find(".min15").removeClass("deselected").addClass("selected");
     div.find(".colourable").addClass("min15")
-  } else if (average_temp > 10) {
+  } else if (meanTemp > 10) {
     div.find(".min10").removeClass("deselected").addClass("selected");;
     div.find(".colourable").addClass("min10")
-  } else if (average_temp > 5) {
+  } else if (meanTemp > 5) {
     div.find(".min5").removeClass("deselected").addClass("selected");;
     div.find(".colourable").addClass("min5")
-  } else if (average_temp > 0) {
+  } else if (meanTemp > 0) {
     div.find(".min0").removeClass("deselected").addClass("selected");;
     div.find(".colourable").addClass("min0")
-  } else if (average_temp > -10) {
+  } else if (meanTemp > -10) {
     div.find(".min-10").removeClass("deselected").addClass("selected");;
     div.find(".colourable").addClass("min-10")
   } else {
