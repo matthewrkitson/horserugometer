@@ -1,8 +1,3 @@
-html, body {
-  height: 100%;
-  width: 100%;
-}
-
 .weather-summary {
   font-size: large;
   margin-top: 0;
@@ -73,7 +68,7 @@ td, th {
 }
 
 #map {
-  height: 50em;
-  width: 50em;
-  /* display: none; */
+  height: 90vw;
+  width: 90vw;
+  margin: auto;
 }
